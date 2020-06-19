@@ -1,0 +1,37 @@
+{
+  "name": "smtpserver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --watch .env --exec babel-node ./src/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-node": "0.0.1-security",
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "connect-redis": "^4.0.4",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "mailparser": "^2.7.7",
+    "mongoose": "^5.9.19",
+    "nodemailer": "^6.4.10",
+    "nodemon": "^2.0.4",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "redis": "^3.0.2",
+    "smtp-server": "^3.6.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.2",
+    "@babel/node": "^7.10.1",
+    "@babel/preset-env": "^7.10.2",
+    "babel-eslint": "^10.1.0",
+    "concurrently": "^5.2.0",
+    "eslint": "^7.2.0"
+  }
+}

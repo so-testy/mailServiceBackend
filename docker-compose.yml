@@ -1,0 +1,55 @@
+version: '3'
+
+services:
+
+    redis:
+        image: redis
+        environment:
+            - ALLOW_EMPTY_PASSWORD=yes
+        networks:
+            - webappnetwork
+
+    mongodb:
+        image: mongo:latest
+        restart: on-failure
+        environment:
+            - MONGO_DATA_DIR=/data/db
+            - MONGO_LOG_DIR=/dev/null
+        ports:
+            - '27019:27017'
+        volumes:
+            - 'dbdata:/data/db'
+        networks:
+            - webappnetwork
+        
+    backend:
+        build: .
+        restart: always
+        ports:
+            - '3000:3000'
+            - '25:25'
+            - '465:465'
+            - '587:587'
+        volumes:
+            - ./src:/usr/src/app/src
+            - .env:/usr/src/app/.env
+        environment:
+            WAIT_HOSTS: mongodb:27017
+            WAIT_HOSTS_TIMEOUT: 60
+            MONGO_HOST: mongodb
+            REDIS_HOST: redis
+            NODE_ENV: 'production'
+        
+        depends_on:
+            - mongodb
+            - redis
+        networks:
+            - webappnetwork
+            
+networks:
+    webappnetwork:
+        driver: bridge
+                 
+volumes:
+    dbdata:
+                 
