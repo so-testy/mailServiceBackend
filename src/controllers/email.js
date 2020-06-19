@@ -4,7 +4,7 @@ import env from 'dotenv';
 env.config();
 
 const EMAIL_SERVER_PORT = Number(process.env.EMAIL_SERVER_PORT);
-const EMAIL_SERVER_HOST = process.env.EMAIL_SERVER_HOST;
+const EMAIL_SERVER_HOST = process.env.NODE_ENV === 'production' ? 'backend' : 'localhost';
 
 const transporter = nodemailer.createTransport({
     host: EMAIL_SERVER_HOST,
