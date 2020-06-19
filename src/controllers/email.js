@@ -17,8 +17,7 @@ export const send = (req, res) => {
     });
 
     const mailOptions = {
-        // from: `${req.user.login}@${EMAIL_SERVER_HOST}`,
-        from,
+        from: `${req.user.login}@${EMAIL_SERVER_HOST}`,
         to,         // 'user2@localhost',
         subject,    // 'Testmail',
         text,       // 'Hi, mail sent.'
