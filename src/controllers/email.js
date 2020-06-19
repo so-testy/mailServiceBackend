@@ -6,21 +6,21 @@ env.config();
 const EMAIL_SERVER_PORT = Number(process.env.EMAIL_SERVER_PORT);
 const EMAIL_SERVER_HOST = process.env.EMAIL_SERVER_HOST;
 
+const transporter = nodemailer.createTransport({
+    host: EMAIL_SERVER_HOST,
+    port: EMAIL_SERVER_PORT,
+    secure: process.env.EMAIL_SERVER_IS_SECURE === 'false' ? false : true,
+    auth: {
+        user: '',
+        pass: ''
+    }
+});
 
 export const send = (req, res) => {
-    const { to, host, port, from, subject, text, html } = req.body;
-    
-    const transporter = nodemailer.createTransport({
-        host: host,
-        port: port,
-        secure: process.env.EMAIL_SERVER_IS_SECURE === 'false' ? false : true,
-        tls: {
-            rejectUnauthorized: false
-        },
-    });
+    const { to, subject, text, html } = req.body;
 
     const mailOptions = {
-        from,
+        from: `${req.user.login}@${EMAIL_SERVER_HOST}`,
         to,         // 'user2@localhost',
         subject,    // 'Testmail',
         text,       // 'Hi, mail sent.'
