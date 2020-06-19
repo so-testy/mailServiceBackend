@@ -8,7 +8,7 @@ const EMAIL_SERVER_HOST = process.env.EMAIL_SERVER_HOST;
 
 
 export const send = (req, res) => {
-    const { to, subject, text, html } = req.body;
+    const { to, from, subject, text, html } = req.body;
     
     const transporter = nodemailer.createTransport({
         host: EMAIL_SERVER_HOST,
@@ -17,7 +17,8 @@ export const send = (req, res) => {
     });
 
     const mailOptions = {
-        from: `${req.user.login}@${EMAIL_SERVER_HOST}`,
+        // from: `${req.user.login}@${EMAIL_SERVER_HOST}`,
+        from,
         to,         // 'user2@localhost',
         subject,    // 'Testmail',
         text,       // 'Hi, mail sent.'
