@@ -3,24 +3,8 @@ import Mail from '../models/mail';
 import env from 'dotenv';
 env.config();
 
-import SMTPConnection from 'nodemailer/lib/smtp-connection';
-
 const EMAIL_SERVER_PORT = Number(process.env.EMAIL_SERVER_PORT);
 const EMAIL_SERVER_HOST = process.env.EMAIL_SERVER_HOST;
-
-const connection = new SMTPConnection({
-    host: process.env.NODE_ENV === 'production' ? 'backend' : 'localhost',
-    port: EMAIL_SERVER_PORT,
-    secure: process.env.EMAIL_SERVER_IS_SECURE === 'false' ? false : true,
-    tls: {
-        rejectUnauthorized: false
-    }
-});
-
-connection.connect((err) => {
-    console.log('connecting');
-    console.log(err);
-});
 
 const transporter = nodemailer.createTransport({
     host: process.env.NODE_ENV === 'production' ? 'backend' : 'localhost',
@@ -43,15 +27,6 @@ export const send = (req, res) => {
         secure: process.env.EMAIL_SERVER_IS_SECURE === 'false' ? false : true,
     };
 
-    connection.send(mailOptions, 'dsfsdfsd', function (error, info) {
-        if (error) {
-            console.log(error);
-            res.status(400).send(error);
-
-        } else {
-            res.json(info);
-        }
-    });
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
             console.log(error);
