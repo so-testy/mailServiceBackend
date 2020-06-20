@@ -46,6 +46,11 @@ usePassportConfig(passport);
 
 app.use('/api/v1', router);
 
+app.get('/*', (req, res, next) => {
+    res.header('Access-Control-Allow-Credentials', 'true');
+    next();
+});
+
 const EMAIL_SERVER_HOST = process.env.NODE_ENV === 'production' ? 'backend' : 'localhost';
 
 const httpServer = server.listen(3000, EMAIL_SERVER_HOST, function () {
