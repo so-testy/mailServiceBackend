@@ -30,7 +30,7 @@ mongoose.connect(`mongodb://${process.env.MONGO_HOST}:27017/mail`, {
 
 app.use(
   cors({
-    origin: ['http://localhost:3001', 'http://епочта.рф:3001', 'http://епочта.рф'],
+    origin: ['http://localhost:3001', 'http://епочта.рф:3001', 'http://епочта.рф', 'http://xn--80aj1adq3a.xn--p1ai'],
     credentials: true,
   }),
 );
