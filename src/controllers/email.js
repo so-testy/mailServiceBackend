@@ -40,7 +40,9 @@ export const send = (req, res) => {
 
 export const incoming = async (req, res) => {
     const mails = await Mail.find({
-        to: `${req.user.login}@${EMAIL_SERVER_HOST}`
+        to: {
+            $regex:  new RegExp(`\\w+${req.user.login}@${EMAIL_SERVER_HOST}\\w+`, 'i')
+        }
     }).exec();
 
     const formatedMails = [];
@@ -55,7 +57,9 @@ export const incoming = async (req, res) => {
 
 export const outcoming = async (req, res) => {
     const mails = await Mail.find({
-        from: `${req.user.login}@${EMAIL_SERVER_HOST}`
+        from: {
+            $regex:  new RegExp(`\\w+${req.user.login}@${EMAIL_SERVER_HOST}\\w+`, 'i')
+        }
     }).exec();
 
     const formatedMails = [];
