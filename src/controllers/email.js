@@ -1,6 +1,7 @@
 import nodemailer from 'nodemailer';
 import Mail from '../models/mail';
 import env from 'dotenv';
+import sendmail from 'sendmail';
 env.config();
 
 const EMAIL_SERVER_PORT = Number(process.env.EMAIL_SERVER_PORT);
@@ -28,6 +29,21 @@ export const send = (req, res) => {
         secure: process.env.EMAIL_SERVER_IS_SECURE === 'false' ? false : true,
     };
 
+    const sendMail = sendmail({
+        smtpHost: 'backend'
+    })
+
+    sendMail({
+        from: `${req.user.login}@${EMAIL_SERVER_HOST}`,
+        to,         // 'user2@localhost',
+        subject,    // 'Testmail',
+        text,       // 'Hi, mail sent.'
+        html, 
+      }, function(err, reply) {
+        console.log(err && err.stack);
+        console.dir(reply);
+    });
+    
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
             console.log(error);
