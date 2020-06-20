@@ -39,13 +39,14 @@ export const send = (req, res) => {
 };
 
 export const incoming = async (req, res) => {
-    const mails = await Mail.find({
-        to: `${req.user.login}@${EMAIL_SERVER_HOST}`
-    }).exec();
+    const mails = await Mail.find().exec();
 
     const formatedMails = [];
     for (const mail of mails) {
-        formatedMails.push(mail.toObject());
+        const formatedMail = mail.toObject();
+        if (formatedMail.to.includes(`${req.user.login}@${EMAIL_SERVER_HOST}`)) {
+            formatedMails.push(mail.toObject());
+        }
     }
 
     res.json({
@@ -54,13 +55,15 @@ export const incoming = async (req, res) => {
 }
 
 export const outcoming = async (req, res) => {
-    const mails = await Mail.find({
-        from: `${req.user.login}@${EMAIL_SERVER_HOST}`
-    }).exec();
+    const mails = await Mail.find().exec();
 
     const formatedMails = [];
     for (const mail of mails) {
-        formatedMails.push(mail.toObject());
+        const formatedMail = mail.toObject();
+
+        if (formatedMail.from.includes(`${req.user.login}@${EMAIL_SERVER_HOST}`)) {
+            formatedMails.push(mail.toObject());
+        }
     }
 
     res.json({
