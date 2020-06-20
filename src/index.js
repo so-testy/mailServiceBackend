@@ -28,7 +28,7 @@ mongoose.connect(`mongodb://${process.env.MONGO_HOST}:27017/mail`, {
     useUnifiedTopology: true
 });
 
-app.use(cors());
+app.use(cors({ origin: ['http://localhost:3000', 'http://епочта.рф:3000', 'http://епочта.рф'] }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
