@@ -41,7 +41,7 @@ export const send = (req, res) => {
 export const incoming = async (req, res) => {
     const mails = await Mail.find({
         to: {
-            $regex: new RegExp(`[A-Za-z0-9_<>\\s]+${req.user.login}@${EMAIL_SERVER_HOST}[A-Za-z0-9_<>\\s]+`, 'i')
+            $regex: new RegExp(`[A-Za-z0-9а-я_<>\\s]+${req.user.login}@${EMAIL_SERVER_HOST}[A-Za-z0-9а-я_<>\\s]+`, 'i')
         }
     }).exec();
 
@@ -58,7 +58,7 @@ export const incoming = async (req, res) => {
 export const outcoming = async (req, res) => {
     const mails = await Mail.find({
         from: {
-            $regex: new RegExp(`[A-Za-z0-9_<>\\s]+${req.user.login}@${EMAIL_SERVER_HOST}[A-Za-z0-9_<>\\s]+`, 'i')
+            $regex: new RegExp(`[A-Za-z0-9а-я_<>\\s]+${req.user.login}@${EMAIL_SERVER_HOST}[A-Za-z0-9а-я_<>\\s]+`, 'i')
         }
     }).exec();
 
