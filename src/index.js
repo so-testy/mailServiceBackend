@@ -44,12 +44,12 @@ app.use(passport.session());
 
 usePassportConfig(passport);
 
-app.use('/api/v1', router);
-
-app.get('/*', (req, res, next) => {
+app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Credentials', 'true');
     next();
 });
+
+app.use('/api/v1', router);
 
 const EMAIL_SERVER_HOST = process.env.NODE_ENV === 'production' ? 'backend' : 'localhost';
 
