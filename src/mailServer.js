@@ -27,6 +27,10 @@ const smtp = new SMTPServer({
         console.log('Received mail from function>>>',address);
         return callback(); 
     },
+    onAuth: function(auth, session, callback) {
+        console.log(auth);
+        callback(null, { user : auth });
+    },
     onRcptTo,
     onData,
     allowInsecureAuth: true,

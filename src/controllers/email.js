@@ -10,6 +10,9 @@ const transporter = nodemailer.createTransport({
     host: process.env.NODE_ENV === 'production' ? 'backend' : 'localhost',
     port: EMAIL_SERVER_PORT,
     secure: process.env.EMAIL_SERVER_IS_SECURE === 'false' ? false : true,
+    tls: {
+        rejectUnauthorized: false
+    }
 });
 
 export const send = (req, res) => {
