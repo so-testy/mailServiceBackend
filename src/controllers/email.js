@@ -11,10 +11,6 @@ const transporter = nodemailer.createTransport({
     host: EMAIL_SERVER_HOST,
     port: EMAIL_SERVER_PORT,
     secure: process.env.EMAIL_SERVER_IS_SECURE === 'false' ? false : true,
-    auth: {
-        user: '',
-        pass: ''
-    }
 });
 
 export const send = (req, res) => {
