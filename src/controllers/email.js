@@ -5,10 +5,10 @@ import sendmail from 'sendmail';
 env.config();
 
 const EMAIL_SERVER_PORT = Number(process.env.EMAIL_SERVER_PORT);
-const EMAIL_SERVER_HOST = process.env.NODE_ENV === 'production' ? 'backend' : 'localhost';
+const EMAIL_SERVER_HOST = process.env.EMAIL_SERVER_HOST;
 
 const transporter = nodemailer.createTransport({
-    host: EMAIL_SERVER_HOST,
+    host: process.env.NODE_ENV === 'production' ? 'backend' : 'localhost',
     port: EMAIL_SERVER_PORT,
     secure: process.env.EMAIL_SERVER_IS_SECURE === 'false' ? false : true,
 });
